@@ -1,0 +1,168 @@
+<div class="container">
+ <div class="row"></div>
+    <div class="row col-lg-12" style="margin-top: 14px;" ng-init="tab = 1">
+        <div class="col-lg-3 col-md-3"> <button type="button" ng-click="tab = 1" class="btn btn-info">Users List</button></div>
+        <div class="col-lg-3 col-md-3"> <button type="button" ng-click="tab = 2" class="btn btn-info">Create User</button></div>
+        <div class="col-lg-3 col-md-3"> <button type="button" ng-click="tab = 3" class="btn btn-info">Delete User</button></div>
+        <div class="col-lg-3 col-md-3"> <button type="button" ng-click="tab = 4" class="btn btn-info">Edit User</button></div>
+    </div>  
+    
+    
+    
+    <!-- ----------------------------------------------------------------------------- -->
+                                    <!--list User-->
+    <!-- ----------------------------------------------------------------------------- -->
+    
+    
+    <div ng-show="tab === 1"> 
+        <h2>List of Users</h2>
+            <p>List of users coming from mongo db</p>            
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                        <th>userName</th>
+                        <th>password</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="u in users">
+                    <td>{{u.firstname}}</td>
+                    <td>{{u.lastname}}</td>
+                    <td>{{u.email}}</td>
+                    <td>{{u.username}}</td>
+                    <td>{{u.password}}</td>
+                  </tr>
+                </tbody>
+            </table>
+    </div>
+    <!-- ----------------------------------------------------------------------------- -->
+                                    <!--Create User-->
+    <!-- ----------------------------------------------------------------------------- -->
+    
+    <div ng-show="tab ===2"><h1>Create User</h1>
+<form ng-submit="myMainSubmit(formData)">
+    <div class="form-group row">
+  <label for="example-text-input" class="col-lg-2 col-md-2 col-form-label">Firstname:</label>
+  <div class="col-lg-6 col-md-8">
+    <input class="form-control" ng-model="formData.fname" type="text" id="example-text-input" placeholder="Enter your firstname">
+  </div>
+</div>
+    
+    <div class="form-group row">
+  <label for="example-text-input" class="col-lg-2 col-md-2 col-form-label">Lastname</label>
+  <div class="col-lg-6 col-md-8">
+    <input class="form-control" type="text" ng-model="formData.lname" placeholder="Enter lastname" id="example-text-input">
+  </div>
+</div>
+    
+<div class="form-group row">
+  <label for="example-email-input" class="col-lg-2 col-md-2 col-form-label">Email:</label>
+  <div class="col-lg-6 col-md-8">
+    <input class="form-control" type="email" ng-model="formData.email" placeholder="someone@something.com" id="example-email-input">
+  </div>
+</div>
+  
+    <div class="form-group row">
+  <label for="example-text-input" class="col-lg-2 col-md-2 col-form-label">Username:</label>
+  <div class="col-lg-6 col-md-8">
+    <input class="form-control" type="text" ng-model="formData.username" placeholder="Enter username" id="example-text-input">
+  </div>
+</div>
+    
+<div class="form-group row">
+  <label for="example-password-input" class="col-lg-2 col-md-2 col-form-label">Password</label>
+  <div class="col-lg-6 col-md-8">
+    <input class="form-control" type="password" ng-model="formData.password" placeholder="Enter password" id="example-password-input">
+  </div>
+</div>
+    <button type="submit" class="btn btn-success">Create account</button>
+    </form>
+    <h3>{{responseData}}</h3>
+    </div>
+    
+    <!-- ----------------------------------------------------------------------------- -->
+                                    <!--delete User-->
+    <!-- ----------------------------------------------------------------------------- -->
+    <div ng-show = "tab === 3">
+    <div class="row col-lg-12"><h1>Delete User</h1></div>
+        <form ng-submit="deleteUser(deleteformData)">
+       
+            <div class ="form-group row">
+                <label for="username-input" class="col-lg-2 col-md-2 col-form-label">Username: </label>
+                <div class="col-lg-6 col-md-8">
+                    <input class="form-control" type="text" ng-model="deleteformData.username" placeholder="Enter username" id="example-username-input">
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="example-password-input" class="col-lg-2 col-md-2 col-form-label">Password</label>
+                <div class="col-lg-6 col-md-8">
+                    <input class="form-control" type="password" ng-model="deleteformData.password" placeholder="Enter password" id="example-password-input">
+                </div>
+            </div>
+        
+             <button type="submit" class="btn btn-success">Delete</button>
+        </form>
+        
+        <h1>{{deleteResponseData}}</h1>
+    </div>
+    
+    <!-- ----------------------------------------------------------------------------- -->
+                                    <!--edit User-->
+    <!-- ----------------------------------------------------------------------------- -->
+    
+    <div ng-show = "tab === 4">
+    <div class="row"><h1>Edit User</h1></div>
+        <form ng-submit="editUser(formEdit)">
+       
+            <div class ="form-group row">
+                <label for="username-input" class="col-lg-2 col-md-2 col-form-label">Username: </label>
+                <div class="col-lg-6 col-md-8">
+                    <input class="form-control" type="user" ng-model="formEdit.username" placeholder="Enter username" id="example-password-input">
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="example-password-input" class="col-lg-2 col-md-2 col-form-label">Password</label>
+                <div class="col-lg-6 col-md-8">
+                    <input class="form-control" type="password" ng-model="formEdit.password" placeholder="Enter password" id="example-password-input">
+                </div>
+            </div>
+            
+        
+             <button type="submit" class="btn btn-success">Edit</button>
+        </form>
+        
+        
+        <div ng-show="editResponse">
+        <form ng-submit="update(update)">
+            
+            {{editResponse[0]._id}}
+         <div class="form-group row">
+  <label for="example-text-input" class="col-lg-2 col-md-2 col-form-label">Firstname:</label>
+  <div class="col-lg-6 col-md-8">
+    <input class="form-control" ng-init="update.fname=editResponse[0].firstname" ng-model="update.fname" type="text" id="example-text-input" placeholder="Enter your firstname">
+  </div>
+</div>
+    
+    <div class="form-group row">
+  <label for="example-text-input" class="col-lg-2 col-md-2 col-form-label">Lastname</label>
+  <div class="col-lg-6 col-md-8">
+    <input class="form-control" type="text" ng-init="update.lname=editResponse[0].lastname" ng-model="update.lname" placeholder="Enter lastname" id="example-text-input">
+  </div>
+</div>
+    
+<div class="form-group row">
+  <label for="example-email-input" class="col-lg-2 col-md-2 col-form-label">Email:</label>
+  <div class="col-lg-6 col-md-8">
+    <input class="form-control" type="email" ng-init="update.email=editResponse[0].email" ng-model="update.email" id="example-email-input" placeholder="someone@something.com">
+  </div>
+</div>
+            <button type="submit" class="btn btn-success">Update</button>
+            </form>
+            </div>
+    </div>
+</div>
